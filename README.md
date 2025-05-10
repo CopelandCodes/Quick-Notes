@@ -12,16 +12,22 @@
 
 # Development Environment
 
-{Describe the tools that you used to develop the software}
+Kotlin 2.1.20
 
-{Describe the programming language that you used and any libraries.}
+IntelliJ IDEA
+
+OpenJDK 24
+
+Github
 
 # Useful Websites
 
 {Make a list of websites that you found helpful in this project}
 
-- [Web Site Name](http://url.link.goes.here)
-- [Web Site Name](http://url.link.goes.here)
+- [IntelliJ Idea](https://www.jetbrains.com/help/idea/getting-started.html)
+- [Kotlin](https://kotlinlang.org/docs/home.html)
+- [Github](https://docs.github.com/en)
+- [OpenJDK](https://openjdk.org/)
 
 # Future Work
 
