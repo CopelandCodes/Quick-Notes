@@ -61,7 +61,7 @@ class NoteManager(private val notesFile: File) {
 
     // Return all notes that contain a category matching the search string
     fun searchByCategory(category: String): List<Note> =
-        notes.filter { note -> note.category.equals(category, ignoreCase = true) }
+        notes.filter { it -> it.category.equals(category, ignoreCase = true) }
 
     // Return all notes that contain a tag matching the search string
     fun searchByTag(tag: String): List<Note> =
