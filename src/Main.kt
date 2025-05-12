@@ -1,3 +1,4 @@
+import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -12,6 +13,42 @@ data class Note(
 fun currentTimestamp(): String {
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
     return LocalDateTime.now().format(formatter)
+}
+
+
+val notesFile = File("notes.txt")
+
+fun saveNotes(notes: List<Note>) {
+    notesFile.printWriter().use { out ->
+        notes.forEach { note ->
+            val line = listOf(
+                note.title.replace("|", ""),
+                note.content.replace("|", ""),
+                note.tags.joinToString(",").replace("|", ""),
+                note.createdAt,
+                note.updatedAt
+            ).joinToString("|")
+            out.println(line)
+        }
+    }
+}
+
+fun loadNotes(): MutableList<Note> {
+    if (!notesFile.exists()) return mutableListOf()
+
+    return notesFile.readLines().mapNotNull { line ->
+        val parts = line.split("|")
+        if (parts.size >= 5) {
+            val (title, content, tagString, created, updated) = parts
+            Note(
+                title = title,
+                content = content,
+                tags = tagString.split(",").map { it.trim() }.filter { it.isNotEmpty() },
+                createdAt = created,
+                updatedAt = updated
+            )
+        } else null
+    }.toMutableList()
 }
 
 fun main() {
