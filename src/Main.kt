@@ -187,7 +187,7 @@ fun main() {
             "3" -> {
                 print("Enter category to search: ")
                 val category = readLine()?.trim() ?: ""
-                val found = manager.searchByCategory(category)
+                val found = manager.searchByCategory(category).sortedBy { it.title.lowercase() } // Sort results alphabetically
                 if (found.isEmpty()) println("No notes found.")
                 else found.forEachIndexed { index, note ->
                     printNote(note, index)
@@ -197,7 +197,7 @@ fun main() {
             "4" -> {
                 print("Enter tag to search: ")
                 val tag = readLine()?.trim() ?: ""
-                val found = manager.searchByTag(tag)
+                val found = manager.searchByTag(tag).sortedBy { it.title.lowercase() } // Sort results alphabetically
                 if (found.isEmpty()) println("No notes found.")
                 else found.forEachIndexed { index, note ->
                     printNote(note, index)
