@@ -12,7 +12,7 @@ val notesFile = File("notes.txt")
 data class Note(
     var title: String,
     var content: String,
-    var category: String = "General", // Sets a default category.
+    var category: String = readLine()?.trim().takeUnless { it.isNullOrBlank()} ?: "General", // Sets a default category.
     var tags: List<String>,
     val createdAt: String = currentTimestamp(),
     var updatedAt: String = currentTimestamp()
