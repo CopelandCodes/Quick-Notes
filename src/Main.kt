@@ -6,16 +6,16 @@ import java.time.format.DateTimeFormatter // For formatting timestamps
 val notesFile = File("notes.txt")
 
 /**
- * A data class representing a Note with a title, content, tags,
+ * A data class representing a Note with a title, content, category, tags,
  * and timestamps for creation and last update.
  */
 data class Note(
-    var title: String,
-    var content: String,
-    var category: String = readLine()?.trim().takeUnless { it.isNullOrBlank()} ?: "General", // Sets a default category.
-    var tags: List<String>,
-    val createdAt: String = currentTimestamp(),
-    var updatedAt: String = currentTimestamp()
+    var title: String, // Title of the note
+    var content: String, // Content or body of the note
+    var category: String = "General", // Optional category for organizing notes
+    var tags: List<String>, // List of tags associated with the note
+    val createdAt: String = currentTimestamp(), // Timestamp when the note was created
+    var updatedAt: String = currentTimestamp() // Timestamp of the last update to the note
 )
 
 /**
@@ -59,24 +59,26 @@ class NoteManager(private val notesFile: File) {
         return false
     }
 
-    // Return all notes that contain a category matching the search string
+    // Return all notes that contain a category matching the search string (case-insensitive)
     fun searchByCategory(category: String): List<Note> =
-        notes.filter { it -> it.category.equals(category, ignoreCase = true) }
+        notes.filter { note -> note.category.equals(category, ignoreCase = true) }
+            .sortedBy { it.title.lowercase() } // Sort results alphabetically by title
 
-    // Return all notes that contain a tag matching the search string
+    // Return all notes that contain a tag matching the search string (case-insensitive)
     fun searchByTag(tag: String): List<Note> =
         notes.filter { it -> it.tags.any { it.equals(tag, ignoreCase = true) } }
+            .sortedBy { it.title.lowercase() } // Sort results alphabetically by title
 
     /**
      * Saves a list of notes to a local text file.
-     * If text file does not exist, one is created.
+     * If the text file does not exist, one is created.
      * Fields are separated by '|' to simplify serialization.
      */
     private fun saveNotes() {
         notesFile.printWriter().use { out ->
             notes.forEach { note ->
                 val line = listOf(
-                    note.title.replace("|", "[PIPE]"),
+                    note.title.replace("|", ""),
                     note.content.replace("|", ""),
                     note.category.replace("|", ""),
                     note.tags.joinToString(",").replace("|", ""),
@@ -97,7 +99,7 @@ class NoteManager(private val notesFile: File) {
 
         return notesFile.readLines().map { line ->
             val parts = line.split("|")
-            val title = parts[0].replace("[PIPE]", "|")
+            val title = parts[0]
             val content = parts[1]
             val category = parts[2]
             val tagString = parts[3]
@@ -124,7 +126,7 @@ fun currentTimestamp(): String {
 }
 
 /**
- * Prints a formatted note to the console.
+ * Prints a formatted note to the console. Includes index number if provided.
  */
 fun printNote(note: Note, index: Int? = null) {
     if (index != null) println("\n${index + 1}. ${note.title}")
@@ -140,13 +142,14 @@ fun printNote(note: Note, index: Int? = null) {
 }
 
 /**
- * Main function: Displays a menu for users to manage their notes
- * (create, view, search, edit, delete, and exit).
+ * Main function: Displays a menu for users to manage their notes.
+ * Offers options to create, view, search, edit, and delete notes.
  */
 fun main() {
     val manager = NoteManager(notesFile)
 
     while (true) {
+        // Print the interactive menu
         println(
             """
             |======= Quick Notes =======
@@ -162,8 +165,10 @@ fun main() {
             """.trimMargin()
         )
 
+        // Handle user selection from the menu
         when (readLine()?.trim()) {
             "1" -> {
+                // Prompt user for new note details
                 print("Enter title: ")
                 val title = readLine() ?: ""
                 print("Enter content: ")
@@ -178,6 +183,7 @@ fun main() {
             }
 
             "2" -> {
+                // Show all existing notes
                 println("All Notes:")
                 manager.getAllNotes().forEachIndexed { index, note ->
                     printNote(note, index)
@@ -185,9 +191,10 @@ fun main() {
             }
 
             "3" -> {
+                // Search and display notes by category
                 print("Enter category to search: ")
                 val category = readLine()?.trim() ?: ""
-                val found = manager.searchByCategory(category).sortedBy { it.title.lowercase() } // Sort results alphabetically
+                val found = manager.searchByCategory(category)
                 if (found.isEmpty()) println("No notes found.")
                 else found.forEachIndexed { index, note ->
                     printNote(note, index)
@@ -195,9 +202,10 @@ fun main() {
             }
 
             "4" -> {
+                // Search and display notes by tag
                 print("Enter tag to search: ")
                 val tag = readLine()?.trim() ?: ""
-                val found = manager.searchByTag(tag).sortedBy { it.title.lowercase() } // Sort results alphabetically
+                val found = manager.searchByTag(tag)
                 if (found.isEmpty()) println("No notes found.")
                 else found.forEachIndexed { index, note ->
                     printNote(note, index)
@@ -205,6 +213,7 @@ fun main() {
             }
 
             "5" -> {
+                // View a note by its index number
                 print("Enter note number: ")
                 val index = readLine()?.toIntOrNull()?.minus(1) ?: -1
                 val note = manager.getNote(index)
@@ -213,6 +222,7 @@ fun main() {
             }
 
             "6" -> {
+                // Edit an existing note
                 print("Enter note number to edit: ")
                 val index = readLine()?.toIntOrNull()?.minus(1) ?: -1
                 val existing = manager.getNote(index)
@@ -233,6 +243,7 @@ fun main() {
             }
 
             "7" -> {
+                // Delete a note with confirmation
                 print("Enter note number to delete: ")
                 val index = readLine()?.toIntOrNull()?.minus(1) ?: -1
                 val target = manager.getNote(index)
@@ -247,6 +258,7 @@ fun main() {
             }
 
             "0" -> {
+                // Exit the program
                 println("Goodbye!")
                 break
             }
