@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter // For formatting timestamps
 val notesFile = File("notes.txt")
 
 /**
- * A data class representing a Note with a title, content, category, tags,
+ * Data class representing a Note with a title, content, category, tags,
  * and timestamps for creation and last update.
  */
 data class Note(
@@ -73,6 +73,7 @@ class NoteManager(private val notesFile: File) {
      * Saves a list of notes to a local text file.
      * If the text file does not exist, one is created.
      * Fields are separated by '|' to simplify serialization.
+     * Private, can only be accessed within the noteManager
      */
     private fun saveNotes() {
         notesFile.printWriter().use { out ->
@@ -93,6 +94,7 @@ class NoteManager(private val notesFile: File) {
     /**
      * Reads notes from a local text file and converts them to a list of Note objects.
      * Returns an empty list if the file doesn't exist.
+     * Private, can only be accessed within the noteManager
      */
     private fun loadNotes(): MutableList<Note> {
         if (!notesFile.exists()) return mutableListOf()
@@ -144,8 +146,10 @@ fun printNote(note: Note, index: Int? = null) {
 /**
  * Main function: Displays a menu for users to manage their notes.
  * Offers options to create, view, search, edit, and delete notes.
+ * Notes can be searched by category or by tags.
  */
 fun main() {
+    // Creates the noteManager and populates it with the data in the notes.txt file if it exists.
     val manager = NoteManager(notesFile)
 
     while (true) {
@@ -162,7 +166,7 @@ fun main() {
             |7. Delete Note
             |0. Exit
             |===========================
-            """.trimMargin()
+            """.trimMargin() // Trims whitespace to align all text to the left
         )
 
         // Handle user selection from the menu
