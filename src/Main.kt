@@ -1,8 +1,18 @@
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 data class Note(
     var title: String,
     var content: String,
-    var tags: List<String>
+    var tags: List<String>,
+    val createdAt: String = currentTimestamp(),
+    var updatedAt: String = currentTimestamp()
 )
+
+fun currentTimestamp(): String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+    return LocalDateTime.now().format(formatter)
+}
 
 fun main() {
     val notes = mutableListOf<Note>()
