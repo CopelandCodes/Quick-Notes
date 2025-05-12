@@ -76,7 +76,7 @@ class NoteManager(private val notesFile: File) {
         notesFile.printWriter().use { out ->
             notes.forEach { note ->
                 val line = listOf(
-                    note.title.replace("|", ""),
+                    note.title.replace("|", "[PIPE]"),
                     note.content.replace("|", ""),
                     note.category.replace("|", ""),
                     note.tags.joinToString(",").replace("|", ""),
@@ -97,7 +97,7 @@ class NoteManager(private val notesFile: File) {
 
         return notesFile.readLines().map { line ->
             val parts = line.split("|")
-            val title = parts[0]
+            val title = parts[0].replace("[PIPE]", "|")
             val content = parts[1]
             val category = parts[2]
             val tagString = parts[3]
