@@ -22,8 +22,6 @@ Github
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
-
 - [IntelliJ Idea](https://www.jetbrains.com/help/idea/getting-started.html)
 - [Kotlin](https://kotlinlang.org/docs/home.html)
 - [Github](https://docs.github.com/en)
