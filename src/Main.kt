@@ -147,6 +147,28 @@ fun main() {
                 }
             }
 
+            "7" -> {
+                if (notes.isEmpty()) {
+                    println("No notes to delete.\n")
+                } else {
+                    println("Select a note to delete:")
+                    notes.forEachIndexed { index, note ->
+                        println("${index + 1}. ${note.title} [${note.tags.joinToString()}]")
+                    }
+                    print("Enter note number: ")
+                    val index = readLine()?.toIntOrNull()
+
+                    if (index != null && index in 1..notes.size) {
+                        val removed = notes.removeAt(index - 1)
+                        saveNotes(notes)
+                        println(" Deleted note: '${removed.title}'\n")
+                    } else {
+                        println(" Invalid note number.\n")
+                    }
+                }
+            }
+
+
             "6" -> {
                 println(" Goodbye!")
                 break
