@@ -159,11 +159,20 @@ fun main() {
                     val index = readLine()?.toIntOrNull()
 
                     if (index != null && index in 1..notes.size) {
-                        val removed = notes.removeAt(index - 1)
-                        saveNotes(notes)
-                        println(" Deleted note: '${removed.title}'\n")
+                        val target = notes[index - 1]
+                        println("\nYou are about to delete: '${target.title}'")
+                        print("Are you sure? (y/n): ")
+                        val confirmation = readLine()?.trim()?.lowercase()
+
+                        if (confirmation == "y" || confirmation == "yes") {
+                            notes.removeAt(index - 1)
+                            saveNotes(notes)
+                            println("✅ Note deleted.\n")
+                        } else {
+                            println("❎ Deletion canceled.\n")
+                        }
                     } else {
-                        println(" Invalid note number.\n")
+                        println("❌ Invalid note number.\n")
                     }
                 }
             }
