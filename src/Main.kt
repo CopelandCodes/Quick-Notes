@@ -155,6 +155,10 @@ fun main() {
     while (true) {
         // Print the interactive menu
         println(
+            /**
+             * Triple quotes are used for raw strings which can span multiple lines, they do not
+             * require escape characters, and all formating and indentations are passed on.
+             */
             """
             |======= Quick Notes =======
             |1. Add Note
@@ -166,7 +170,7 @@ fun main() {
             |7. Delete Note
             |0. Exit
             |===========================
-            """.trimMargin() // Trims whitespace to align all text to the left
+            """.trimMargin() // Trims all whitespace to align text to the left. (remove indentations)
         )
 
         // Handle user selection from the menu
