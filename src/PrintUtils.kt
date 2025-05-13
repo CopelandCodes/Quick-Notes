@@ -1,5 +1,3 @@
-package quicknote
-
 /**
  * Prints a formatted note to the console. Includes index number if provided.
  */

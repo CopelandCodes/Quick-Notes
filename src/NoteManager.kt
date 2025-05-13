@@ -1,5 +1,3 @@
-package quicknote
-
 import java.io.File
 
 /**

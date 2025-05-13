@@ -1,5 +1,3 @@
-package quicknote
-
 /**
  * Data class representing a Note with a title, content, category, tags,
  * and timestamps for creation and last update.
