@@ -1,4 +1,5 @@
-package quicknote
+package quicknote // Tells Kotlin which files belong to this package
+
 
 /**
  * Main function: Displays a menu for users to manage their notes.
