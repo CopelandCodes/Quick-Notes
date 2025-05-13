@@ -13,5 +13,5 @@ fun printNote(note: Note, index: Int? = null) {
     }
     println("Content: ${note.content}")
     println("Category: ${note.category}")
-    println("Tags: ${note.tags.joinToString()}")
+    println("Tags: ${note.tags.joinToString()}\n")
 }
