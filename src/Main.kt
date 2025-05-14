@@ -82,7 +82,7 @@ fun main() {
                 val index = readLine()?.toIntOrNull()?.minus(1) ?: -1
                 val note = manager.getNote(index)
                 if (note != null) printNote(note)
-                else println("Invalid note number.")
+                else println("Invalid note, try again.")
             }
 
             "6" -> {
@@ -103,7 +103,7 @@ fun main() {
                         newTagsInput.split(",").map { it.trim() }.filter { it.isNotEmpty() } else null
                     manager.updateNote(index, newTitle, newContent, newCategory, newTags)
                     println("Note updated.")
-                } else println("Invalid note number.")
+                } else println("Invalid note, try again.")
             }
 
             "7" -> {
@@ -118,7 +118,7 @@ fun main() {
                         manager.deleteNote(index)
                         println("Note deleted.")
                     } else println("Canceled.")
-                } else println("Invalid note number.")
+                } else println("Invalid note, try again.")
             }
 
             "0" -> {
