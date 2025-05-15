@@ -34,26 +34,44 @@ fun main() {
 
             // Option 1: Add a new note
             "1" -> {
-                // Prompt for note fields
-                print("Title: ")
-                val title = readLine() ?: ""
-                print("Content: ")
-                val content = readLine() ?: ""
-                print("Category: ")
-                val category = readLine() ?: ""
-                print("Tags (comma-separated): ")
-                val tags = readLine()?.split(",")?.map { it.trim() } ?: emptyList()
+                // Prompt for a non-blank title
+                var title: String
+                while (true) {
+                    print("Title: ")
+                    title = readLine()?.trim().orEmpty()
+                    if (title.isNotEmpty()) break
+                    println("Title cannot be empty.\n")
+                }
 
-                // Create and save the new note
+                // Prompt for non-blank content
+                var content: String
+                while (true) {
+                    print("Content: ")
+                    content = readLine()?.trim().orEmpty()
+                    if (content.isNotEmpty()) break
+                    println("Content cannot be empty.\n")
+                }
+
+                // Optional category with default fallback
+                print("Category [General]: ")
+                val category = readLine()?.takeIf { it.isNotBlank() } ?: "General"
+
+                // Optional tags
+                print("Tags (comma-separated): ")
+                val tags = readLine()?.split(",")?.map { it.trim() }?.filter { it.isNotEmpty() } ?: emptyList()
+
+                // Create and save the note
                 val note = Note(
                     title = title,
                     content = content,
                     category = category,
                     tags = tags
                 )
+
                 manager.addNote(note)
-                println("\nNote added!\n")
+                println("Note added!\n")
             }
+
 
             // Option 2: View all notes
             "2" -> {
