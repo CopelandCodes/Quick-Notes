@@ -4,9 +4,19 @@ import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
 
+/**
+ * NoteManager is responsible for all interactions with the SQLite database.
+ * It provides methods to create, read, update, delete, and search notes.
+ *
+ * The database is initialized automatically on creation of the class instance,
+ * and a connection is maintained until the `close()` method is called.
+ */
 class NoteManager(dbPath: String = "notes.db") {
+
+    // Establishes a connection to the SQLite database
     private val connection: Connection = DriverManager.getConnection("jdbc:sqlite:$dbPath")
 
+    // Initializes the notes table if it doesn't already exist
     init {
         connection.createStatement().use { stmt ->
             stmt.executeUpdate(
@@ -25,6 +35,10 @@ class NoteManager(dbPath: String = "notes.db") {
         }
     }
 
+    /**
+     * Inserts a new note into the database.
+     * Its ID is ignored as it's auto-generated.
+     */
     fun addNote(note: Note) {
         val sql = """
             INSERT INTO notes (title, content, category, tags, createdAt, updatedAt)
@@ -42,6 +56,10 @@ class NoteManager(dbPath: String = "notes.db") {
         }
     }
 
+    /**
+     * Retrieves all notes from the database.
+     * returns a list of all notes stored in the database.
+     */
     fun getAllNotes(): List<Note> {
         val notes = mutableListOf<Note>()
         val sql = "SELECT id, title, content, category, tags, createdAt, updatedAt FROM notes"
@@ -66,6 +84,9 @@ class NoteManager(dbPath: String = "notes.db") {
         return notes
     }
 
+    /**
+     * Updates an existing note in the database by ID.
+     */
     fun updateNote(id: Int, updated: Note) {
         val sql = """
             UPDATE notes SET 
@@ -88,6 +109,10 @@ class NoteManager(dbPath: String = "notes.db") {
         }
     }
 
+    /**
+     * Retrieves a single note by its unique ID.
+     * returns the note if found, or null if not found.
+     */
     fun getNoteById(id: Int): Note? {
         val sql = "SELECT id, title, content, category, tags, createdAt, updatedAt FROM notes WHERE id = ?"
         connection.prepareStatement(sql).use { stmt ->
@@ -107,18 +132,30 @@ class NoteManager(dbPath: String = "notes.db") {
         }
     }
 
+    /**
+     * Searches notes by category (case-insensitive).
+     * returns a list of notes in the given category.
+     */
     fun searchByCategory(category: String): List<Note> {
         return getAllNotes().filter {
             it.category.equals(category, ignoreCase = true)
         }
     }
 
+    /**
+     * Searches notes that contain a given tag (case-insensitive).
+     * returns a list of notes that contain the tag.
+     */
     fun searchByTag(tag: String): List<Note> {
         return getAllNotes().filter {
             it.tags.any { t -> t.equals(tag, ignoreCase = true) }
         }
     }
 
+    /**
+     * Searches notes for a keyword in the title or content (case-insensitive).
+     * returns a list of matching notes.
+     */
     fun searchByKeyword(keyword: String): List<Note> {
         return getAllNotes().filter {
             it.title.contains(keyword, ignoreCase = true) ||
@@ -126,7 +163,9 @@ class NoteManager(dbPath: String = "notes.db") {
         }
     }
 
-
+    /**
+     * Deletes a note by its ID.
+     */
     fun deleteNote(id: Int) {
         val sql = "DELETE FROM notes WHERE id = ?"
         connection.prepareStatement(sql).use { stmt ->
@@ -135,6 +174,10 @@ class NoteManager(dbPath: String = "notes.db") {
         }
     }
 
+    /**
+     * Closes the database connection.
+     * Needs to be called when the application is shutting down.
+     */
     fun close() {
         connection.close()
     }

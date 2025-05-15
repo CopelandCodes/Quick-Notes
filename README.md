@@ -32,8 +32,6 @@ Github
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-
-- Add a GUI
+- Add a GUI to run on the desktop
 - Create the option to encrypt notes
-- Item 3
+- Create an optional completion date with reminders for notes 

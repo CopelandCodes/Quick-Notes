@@ -38,3 +38,6 @@ app/src/main/kotlin/quicknotes/notes.txt
 
 # Ignore Gradle build output directory
 build
+
+# ignore database
+notes.db

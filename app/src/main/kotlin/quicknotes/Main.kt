@@ -1,11 +1,18 @@
 package quicknotes
 
+/**
+ * Main function: Displays a menu for users to manage their notes.
+ * Offers options to create, view, search, edit, and delete notes.
+ * Notes can be filtered by category or tag, searched by keyword, and identified by ID.
+ */
 fun main() {
-    val manager = NoteManager()
+    val manager = NoteManager() // Initializes the SQLite-backed NoteManager
 
     println("Welcome to QuickNotes with SQLite!")
 
+    // Infinite loop for interactive CLI menu
     while (true) {
+        // Display menu using raw string with margin trimming
         println(
             """
             |======= Quick Notes =======
@@ -19,11 +26,15 @@ fun main() {
             |8. Search Notes by Keyword
             |0. Exit
             |===========================
-        """.trimMargin()
+            """.trimMargin()
         )
 
+        // Process user input for menu selection
         when (readLine()?.trim()) {
+
+            // Option 1: Add a new note
             "1" -> {
+                // Prompt for note fields
                 print("Title: ")
                 val title = readLine() ?: ""
                 print("Content: ")
@@ -33,6 +44,7 @@ fun main() {
                 print("Tags (comma-separated): ")
                 val tags = readLine()?.split(",")?.map { it.trim() } ?: emptyList()
 
+                // Create and save the new note
                 val note = Note(
                     title = title,
                     content = content,
@@ -43,12 +55,14 @@ fun main() {
                 println("Note added!\n")
             }
 
+            // Option 2: View all notes
             "2" -> {
                 val notes = manager.getAllNotes()
                 if (notes.isEmpty()) println("No notes found.")
                 else notes.forEach { printNote(it) }
             }
 
+            // Option 3: View notes by category
             "3" -> {
                 print("Enter category to search: ")
                 val category = readLine()?.trim() ?: ""
@@ -57,6 +71,7 @@ fun main() {
                 else notes.forEach { printNote(it) }
             }
 
+            // Option 4: View notes by tag
             "4" -> {
                 print("Enter tag to search: ")
                 val tag = readLine()?.trim() ?: ""
@@ -65,6 +80,7 @@ fun main() {
                 else notes.forEach { printNote(it) }
             }
 
+            // Option 5: View a specific note by its database ID
             "5" -> {
                 print("Enter note ID: ")
                 val id = readLine()?.toIntOrNull()
@@ -73,12 +89,14 @@ fun main() {
                 else println("Note not found.")
             }
 
+            // Option 6: Edit an existing note
             "6" -> {
                 print("Enter note ID to edit: ")
                 val id = readLine()?.toIntOrNull()
-                val existing = manager.getAllNotes().find { it.id == id }
+                val existing = manager.getNoteById(id ?: -1)
 
                 if (existing != null) {
+                    // Prompt for each field, allowing blank input to retain existing values
                     print("New title [${existing.title}]: ")
                     val newTitle = readLine()?.takeIf { it.isNotBlank() } ?: existing.title
 
@@ -94,6 +112,7 @@ fun main() {
                         tagInput.split(",").map { it.trim() }.filter { it.isNotEmpty() }
                     else existing.tags
 
+                    // Create a modified note and update the database
                     val updatedNote = existing.copy(
                         title = newTitle,
                         content = newContent,
@@ -108,10 +127,11 @@ fun main() {
                 }
             }
 
+            // Option 7: Delete a note
             "7" -> {
                 print("Enter note ID to delete: ")
                 val id = readLine()?.toIntOrNull()
-                val note = manager.getAllNotes().find { it.id == id }
+                val note = manager.getNoteById(id ?: -1)
                 if (note != null) {
                     print("Are you sure you want to delete '${note.title}'? (y/n): ")
                     if (readLine()?.lowercase() in listOf("y", "yes")) {
@@ -123,6 +143,7 @@ fun main() {
                 } else println("Note not found.")
             }
 
+            // Option 8: Search notes by keyword (in title or content)
             "8" -> {
                 print("Enter keyword to search in title/content: ")
                 val keyword = readLine()?.trim() ?: ""
@@ -131,13 +152,16 @@ fun main() {
                 else results.forEach { printNote(it) }
             }
 
+            // Option 0: Exit the program
             "0" -> {
-                manager.close()
+                manager.close() // Gracefully close DB connection
                 println("Goodbye!")
                 break
             }
 
+            // Invalid input handler
             else -> println("Invalid option.\n")
         }
     }
 }
+
