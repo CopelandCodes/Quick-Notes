@@ -88,6 +88,45 @@ class NoteManager(dbPath: String = "notes.db") {
         }
     }
 
+    fun getNoteById(id: Int): Note? {
+        val sql = "SELECT id, title, content, category, tags, createdAt, updatedAt FROM notes WHERE id = ?"
+        connection.prepareStatement(sql).use { stmt ->
+            stmt.setInt(1, id)
+            val rs = stmt.executeQuery()
+            return if (rs.next()) {
+                Note(
+                    id = rs.getInt("id"),
+                    title = rs.getString("title"),
+                    content = rs.getString("content"),
+                    category = rs.getString("category"),
+                    tags = rs.getString("tags")?.split(",")?.map { it.trim() } ?: emptyList(),
+                    createdAt = rs.getString("createdAt"),
+                    updatedAt = rs.getString("updatedAt")
+                )
+            } else null
+        }
+    }
+
+    fun searchByCategory(category: String): List<Note> {
+        return getAllNotes().filter {
+            it.category.equals(category, ignoreCase = true)
+        }
+    }
+
+    fun searchByTag(tag: String): List<Note> {
+        return getAllNotes().filter {
+            it.tags.any { t -> t.equals(tag, ignoreCase = true) }
+        }
+    }
+
+    fun searchByKeyword(keyword: String): List<Note> {
+        return getAllNotes().filter {
+            it.title.contains(keyword, ignoreCase = true) ||
+                    it.content.contains(keyword, ignoreCase = true)
+        }
+    }
+
+
     fun deleteNote(id: Int) {
         val sql = "DELETE FROM notes WHERE id = ?"
         connection.prepareStatement(sql).use { stmt ->

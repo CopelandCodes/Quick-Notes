@@ -14,9 +14,11 @@
 
 Kotlin 2.1.20
 
+Gradle 8.14
+
 IntelliJ IDEA
 
-OpenJDK 24
+OpenJDK 21
 
 Github
 
@@ -24,7 +26,8 @@ Github
 
 - [IntelliJ Idea](https://www.jetbrains.com/help/idea/getting-started.html)
 - [Kotlin](https://kotlinlang.org/docs/home.html)
-- [Github](https://docs.github.com/en)
+- [Gradle](https://kotlinlang.org/docs/home.html)
+- [Github](https://docs.gradle.org/current/userguide/userguide.html)
 - [OpenJDK](https://openjdk.org/)
 
 # Future Work
@@ -32,5 +35,5 @@ Github
 {Make a list of things that you need to fix, improve, and add in the future.}
 
 - Add a GUI
-- Item 2
+- Create the option to encrypt notes
 - Item 3

@@ -16,6 +16,7 @@ fun main() {
             |5. View Note by ID
             |6. Edit Note
             |7. Delete Note
+            |8. Search Notes by Keyword
             |0. Exit
             |===========================
         """.trimMargin()
@@ -51,7 +52,7 @@ fun main() {
             "3" -> {
                 print("Enter category to search: ")
                 val category = readLine()?.trim() ?: ""
-                val notes = manager.getAllNotes().filter { it.category.equals(category, ignoreCase = true) }
+                val notes = manager.searchByCategory(category)
                 if (notes.isEmpty()) println("No notes found in that category.")
                 else notes.forEach { printNote(it) }
             }
@@ -59,7 +60,7 @@ fun main() {
             "4" -> {
                 print("Enter tag to search: ")
                 val tag = readLine()?.trim() ?: ""
-                val notes = manager.getAllNotes().filter { it.tags.any { t -> t.equals(tag, ignoreCase = true) } }
+                val notes = manager.searchByTag(tag)
                 if (notes.isEmpty()) println("No notes found with that tag.")
                 else notes.forEach { printNote(it) }
             }
@@ -67,7 +68,7 @@ fun main() {
             "5" -> {
                 print("Enter note ID: ")
                 val id = readLine()?.toIntOrNull()
-                val note = manager.getAllNotes().find { it.id == id }
+                val note = manager.getNoteById(id ?: -1)
                 if (note != null) printNote(note)
                 else println("Note not found.")
             }
@@ -120,6 +121,14 @@ fun main() {
                         println("Delete canceled.")
                     }
                 } else println("Note not found.")
+            }
+
+            "8" -> {
+                print("Enter keyword to search in title/content: ")
+                val keyword = readLine()?.trim() ?: ""
+                val results = manager.searchByKeyword(keyword)
+                if (results.isEmpty()) println("No notes matched.")
+                else results.forEach { printNote(it) }
             }
 
             "0" -> {
