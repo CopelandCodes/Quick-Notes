@@ -52,13 +52,13 @@ fun main() {
                     tags = tags
                 )
                 manager.addNote(note)
-                println("Note added!\n")
+                println("\nNote added!\n")
             }
 
             // Option 2: View all notes
             "2" -> {
                 val notes = manager.getAllNotes()
-                if (notes.isEmpty()) println("No notes found.")
+                if (notes.isEmpty()) println("No notes found.\n")
                 else notes.forEach { printNote(it) }
             }
 
@@ -67,7 +67,7 @@ fun main() {
                 print("Enter category to search: ")
                 val category = readLine()?.trim() ?: ""
                 val notes = manager.searchByCategory(category)
-                if (notes.isEmpty()) println("No notes found in that category.")
+                if (notes.isEmpty()) println("No notes found in that category.\n")
                 else notes.forEach { printNote(it) }
             }
 
@@ -76,7 +76,7 @@ fun main() {
                 print("Enter tag to search: ")
                 val tag = readLine()?.trim() ?: ""
                 val notes = manager.searchByTag(tag)
-                if (notes.isEmpty()) println("No notes found with that tag.")
+                if (notes.isEmpty()) println("No notes found with that tag.\n")
                 else notes.forEach { printNote(it) }
             }
 
@@ -86,7 +86,7 @@ fun main() {
                 val id = readLine()?.toIntOrNull()
                 val note = manager.getNoteById(id ?: -1)
                 if (note != null) printNote(note)
-                else println("Note not found.")
+                else println("Note not found.\n")
             }
 
             // Option 6: Edit an existing note
@@ -121,9 +121,9 @@ fun main() {
                         updatedAt = currentTimestamp()
                     )
                     manager.updateNote(id!!, updatedNote)
-                    println("Note updated.")
+                    println("Note updated.\n")
                 } else {
-                    println("Note not found.")
+                    println("Note not found.\n")
                 }
             }
 
@@ -136,11 +136,11 @@ fun main() {
                     print("Are you sure you want to delete '${note.title}'? (y/n): ")
                     if (readLine()?.lowercase() in listOf("y", "yes")) {
                         manager.deleteNote(id!!)
-                        println("Note deleted.")
+                        println("\n***Note deleted.***\n")
                     } else {
-                        println("Delete canceled.")
+                        println("Delete canceled.\n")
                     }
-                } else println("Note not found.")
+                } else println("Note not found.\n")
             }
 
             // Option 8: Search notes by keyword (in title or content)
@@ -148,14 +148,14 @@ fun main() {
                 print("Enter keyword to search in title/content: ")
                 val keyword = readLine()?.trim() ?: ""
                 val results = manager.searchByKeyword(keyword)
-                if (results.isEmpty()) println("No notes matched.")
+                if (results.isEmpty()) println("No notes matched.\n")
                 else results.forEach { printNote(it) }
             }
 
             // Option 0: Exit the program
             "0" -> {
                 manager.close() // Gracefully close DB connection
-                println("Goodbye!")
+                println("Goodbye!\n")
                 break
             }
 
