@@ -54,7 +54,7 @@ fun main() {
                 }
 
                 // Optional category with default fallback
-                print("Category [General]: ")
+                print("Category (Default: General): ")
                 val category = readLine()?.takeIf { it.isNotBlank() } ?: "General"
 
                 // Optional tags
