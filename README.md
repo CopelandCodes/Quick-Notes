@@ -6,7 +6,6 @@ This project demonstrates how to use Kotlin to structure a multi-file applicatio
 
 This software serves as both a personal productivity tool and a technical portfolio piece. It allowed me to explore Kotlin's standard library, practice modular architecture, and reinforce essential development practices such as error handling, documentation, and user-focused interaction design.
 
-[Software Demo Video](http://youtube.link.goes.here)
 
 # Development Environment
 
