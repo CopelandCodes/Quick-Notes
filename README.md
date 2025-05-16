@@ -1,12 +1,10 @@
 # Overview
 
-{Important! Do not say in this section that this is college assignment. Talk about what you are trying to accomplish as a software engineer to further your learning.}
+As part of my continued development as a software engineer, I created a fully functional command-line note-taking application to deepen my understanding of Kotlin's syntax and its application in real-world software design. The goal was to build a tool that was both practical and maintainable, while exploring Kotlin's expressive syntax, type safety, and interoperability with Java-based tools like SQLite and Gradle.
 
-{Provide a description of the software that you wrote to demonstrate the Main.Kotlin language.}
+This project demonstrates how to use Kotlin to structure a multi-file application, apply object-oriented design principles, manage persistent data with a relational database, and implement clean user input validation. Notes are stored in a local SQLite database and include support for metadata such as categories, tags, and timestamps. Users can create, view, search, edit, and delete notes interactively through a clean command-line interface.
 
-{Describe your purpose for writing this software.}
-
-{Provide a link to your YouTube demonstration. It should be a 4-5 minute demo of the software running and a walkthrough of the code. Focus should be on sharing what you learned about the language syntax.}
+The purpose of this software is to serve as both a personal productivity tool and a technical portfolio piece. It allowed me to explore Kotlin’s standard library, practice modular architecture, and reinforce essential development practices such as error handling, documentation, and user-focused interaction design.
 
 [Software Demo Video](http://youtube.link.goes.here)
 
