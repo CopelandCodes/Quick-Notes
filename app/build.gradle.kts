@@ -24,6 +24,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 
     implementation("org.xerial:sqlite-jdbc:3.44.1.0")
+    implementation("org.slf4j:slf4j-simple:1.7.36")
     implementation("org.slf4j:slf4j-simple:2.0.9")
 
     // Use the JUnit 5 integration.
