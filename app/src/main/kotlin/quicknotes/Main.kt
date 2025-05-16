@@ -17,10 +17,10 @@ fun main() {
             """
             |======= Quick Notes =======
             |1. Add Note
-            |2. View All Notes
-            |3. View Notes by Category
-            |4. View Notes by Tag
-            |5. View Note by ID
+            |2. Show All Notes
+            |3. Search Notes by Category
+            |4. Search Notes by Tag
+            |5. Show Note by ID
             |6. Edit Note
             |7. Delete Note
             |8. Search Notes by Keyword
