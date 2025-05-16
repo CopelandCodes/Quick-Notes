@@ -40,21 +40,26 @@ class NoteManager(dbPath: String = "notes.db") {
      * Its ID is ignored as it's auto-generated.
      */
     fun addNote(note: Note) {
-        val sql = """
+        try {
+            val sql = """
             INSERT INTO notes (title, content, category, tags, createdAt, updatedAt)
             VALUES (?, ?, ?, ?, ?, ?)
         """.trimIndent()
 
-        connection.prepareStatement(sql).use { stmt ->
-            stmt.setString(1, note.title)
-            stmt.setString(2, note.content)
-            stmt.setString(3, note.category)
-            stmt.setString(4, note.tags.joinToString(","))
-            stmt.setString(5, note.createdAt)
-            stmt.setString(6, note.updatedAt)
-            stmt.executeUpdate()
+            connection.prepareStatement(sql).use { stmt ->
+                stmt.setString(1, note.title)
+                stmt.setString(2, note.content)
+                stmt.setString(3, note.category)
+                stmt.setString(4, note.tags.joinToString(","))
+                stmt.setString(5, note.createdAt)
+                stmt.setString(6, note.updatedAt)
+                stmt.executeUpdate()
+            }
+        } catch (e: Exception) {
+            println("Failed to add note: ${e.message}")
         }
     }
+
 
     /**
      * Retrieves all notes from the database.
@@ -88,24 +93,28 @@ class NoteManager(dbPath: String = "notes.db") {
      * Updates an existing note in the database by ID.
      */
     fun updateNote(id: Int, updated: Note) {
-        val sql = """
-            UPDATE notes SET 
-                title = ?, 
-                content = ?, 
-                category = ?, 
-                tags = ?, 
-                updatedAt = ?
-            WHERE id = ?
-        """.trimIndent()
+        try {
+            val sql = """
+                UPDATE notes SET 
+                    title = ?, 
+                    content = ?, 
+                    category = ?, 
+                    tags = ?, 
+                    updatedAt = ?
+                WHERE id = ?
+            """.trimIndent()
 
-        connection.prepareStatement(sql).use { stmt ->
-            stmt.setString(1, updated.title)
-            stmt.setString(2, updated.content)
-            stmt.setString(3, updated.category)
-            stmt.setString(4, updated.tags.joinToString(","))
-            stmt.setString(5, updated.updatedAt)
-            stmt.setInt(6, id)
-            stmt.executeUpdate()
+            connection.prepareStatement(sql).use { stmt ->
+                stmt.setString(1, updated.title)
+                stmt.setString(2, updated.content)
+                stmt.setString(3, updated.category)
+                stmt.setString(4, updated.tags.joinToString(","))
+                stmt.setString(5, updated.updatedAt)
+                stmt.setInt(6, id)
+                stmt.executeUpdate()
+            }
+        } catch (e: Exception) {
+            println("Failed to update note: ${e.message}")
         }
     }
 
@@ -167,10 +176,14 @@ class NoteManager(dbPath: String = "notes.db") {
      * Deletes a note by its ID.
      */
     fun deleteNote(id: Int) {
-        val sql = "DELETE FROM notes WHERE id = ?"
-        connection.prepareStatement(sql).use { stmt ->
-            stmt.setInt(1, id)
-            stmt.executeUpdate()
+        try {
+            val sql = "DELETE FROM notes WHERE id = ?"
+            connection.prepareStatement(sql).use { stmt ->
+                stmt.setInt(1, id)
+                stmt.executeUpdate()
+            }
+        } catch (e: Exception) {
+            println("Failed to delete note: ${e.message}")
         }
     }
 

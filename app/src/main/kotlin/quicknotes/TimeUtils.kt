@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter
  * such as generating a timestamp string in a standard format for storage and display.
  *
  * Returns the current date and time as a formatted string.
- *
  * Format: yyyy-MM-dd HH:mm:ss (e.g., 2025-05-14 22:47:00)
  *
  * This format is compatible with SQLite's TEXT datetime columns
