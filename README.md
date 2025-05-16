@@ -1,10 +1,10 @@
 # Overview
 
-As part of my continued development as a software engineer, I created a fully functional command-line note-taking application to deepen my understanding of Kotlin's syntax and its application in real-world software design. The goal was to build a tool that was both practical and maintainable, while exploring Kotlin's expressive syntax, type safety, and interoperability with Java-based tools like SQLite and Gradle.
+As part of my continued development as a software engineer, I created a fully functional command-line note-taking application to deepen my understanding of Kotlin's syntax and its application in real-world software design. The goal was to build a practical and maintainable tool while exploring Kotlin's expressive syntax, type safety, and interoperability with Java-based tools like SQLite and Gradle.
 
-This project demonstrates how to use Kotlin to structure a multi-file application, apply object-oriented design principles, manage persistent data with a relational database, and implement clean user input validation. Notes are stored in a local SQLite database and include support for metadata such as categories, tags, and timestamps. Users can create, view, search, edit, and delete notes interactively through a clean command-line interface.
+This project demonstrates how to use Kotlin to structure a multi-file application, apply object-oriented design principles, manage persistent data with a relational database, and implement clean user input validation. Notes are stored in a local SQLite database and include support for metadata such as categories, tags, and timestamps. Users can create, view, search, edit, and delete notes through a clean command-line interface.
 
-The purpose of this software is to serve as both a personal productivity tool and a technical portfolio piece. It allowed me to explore Kotlin’s standard library, practice modular architecture, and reinforce essential development practices such as error handling, documentation, and user-focused interaction design.
+This software serves as both a personal productivity tool and a technical portfolio piece. It allowed me to explore Kotlin's standard library, practice modular architecture, and reinforce essential development practices such as error handling, documentation, and user-focused interaction design.
 
 [Software Demo Video](http://youtube.link.goes.here)
 
