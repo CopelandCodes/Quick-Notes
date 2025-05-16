@@ -33,4 +33,4 @@ Github
 - Add a GUI to run on the desktop
 - Create the option to encrypt notes
 - Create an optional completion date with reminders for notes 
-- IImplement user accounts 
+- Implement user accounts 
