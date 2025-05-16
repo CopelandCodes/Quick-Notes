@@ -6,18 +6,14 @@ package quicknotes
  * Omits the "Updated" field if the note has not been updated since creation.
  */
 fun printNote(note: Note) {
-    println("-------------------------------")
-    println("ID: ${note.id}")
+    println("------------------------------------------------------")
+    // Will show the creation date or a last modified date
+    val dateLabel = if (note.updatedAt != note.createdAt) "Last Modified" else "Created"
+    val dateValue = if (note.updatedAt != note.createdAt) note.updatedAt else note.createdAt
+    println("ID: ${note.id}    $dateLabel: $dateValue")
     println("Title: ${note.title}")
     println("Category: ${note.category}")
+    println("Content: ${note.content}\n")
     println("Tags: ${note.tags.joinToString(", ")}")
-    println("Created: ${note.createdAt}")
-
-    // Only print 'Updated' if it's different from 'Created'
-    if (note.updatedAt != note.createdAt) {
-        println("Updated: ${note.updatedAt}")
-    }
-
-    println("Content: ${note.content}")
     println("-------------------------------\n")
 }
