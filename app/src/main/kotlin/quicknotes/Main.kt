@@ -8,8 +8,7 @@ package quicknotes
 fun main() {
     val manager = NoteManager() // Initializes the SQLite-backed NoteManager
 
-
-    println("Welcome to QuickNotes with SQLite!")
+    println("\nWelcome to QuickNotes with SQLite!\n")
 
     // Infinite loop for interactive CLI menu
     while (true) {

@@ -5,7 +5,7 @@ package quicknotes
  * and timestamps for creation and last update.
  */
 data class Note(
-    val id: Int? = null, // Optional DB ID, only used when reading from the database
+    val id: Int? = null, // DB ID, used as the note ID number
     var title: String,
     var content: String,
     var category: String = "General",

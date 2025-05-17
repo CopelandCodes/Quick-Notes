@@ -14,6 +14,6 @@ fun printNote(note: Note) {
     println("Title: ${note.title}")
     println("Category: ${note.category}")
     println("Content: ${note.content}\n")
-    println("Tags: ${note.tags.joinToString(", ")}")
+    println("\nTags: ${note.tags.joinToString(", ")}")
     println("-------------------------------\n")
 }
